@@ -27,21 +27,32 @@ If game is not over, we start our next turn.
 
 
 // Write tests for all below:
-/*
-
-hit function ( shot reaches ship, or ship collision).collision
-
-hpChange function ( change the hp that's given by the given increment/decrement)
-
-move function ( change given position by x amount).
-
-plotCourse function ( head toward given target, until either arrival or destruction).
 
 
+// hit function ( shot reaches ship, or ship collision).collision
+const hit = (loc1, loc2) => {
+    if (loc1.x - loc2.x === 0 && loc1.y - loc2.y === 0) {
+        return true;
+    } return false;
+}
+
+// hpChange function ( change the hp that's given by the given increment/decrement)
+const hpChange = (shipHp, change) => {
+    return shipHp - change;
+}
+
+// move function ( change given position by x amount).
+
+// plotCourse function ( head toward given target, until either arrival or destruction).
 
 
-pause function (toggle our Main Gameplay Loop).
+// pause function (toggle our Main Gameplay Loop).
 
-playerisOut function ( see if a player is out of ships)
+// playerisOut function ( see if a player is out of ships)
 
-*/
+
+
+module.exports = {
+    hpChange,
+    hit
+}
