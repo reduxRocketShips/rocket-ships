@@ -1,27 +1,22 @@
- 
-export interface shipInterface {
-    owner: playerInterface;
-    coordinates: Array<number>;
-    color: string;
+interface shipInterface {
+   owner: playerInterface;
+   coordinates: number[];
+   color: string;
+}
 
- }
+interface projectileInterface {
+   id: number;
+   coordinates: number[];
+   hp: number;
+}
 
- export interface shotInterface {
-    id: number;
-    coordinates: Array<number>;
-    hp: number;
+interface playerInterface {
+   ships: shipInterface[];
+   color: string;
+}
 
- }
-
-
- export interface playerInterface {
-    ships: Array<shipInterface>;
-    color: string;
- }
-
-
- export interface actionInterface {
-    type: string;
-    item: string;
-    value: Array<any>;
- }
+export interface actionInterface {
+   type: string;
+   item: string;
+   value: shipInterface[] | projectileInterface[];
+}

@@ -1,5 +1,5 @@
 
-
+import { coordinatesInterface } from '../'
 
 
 /*
@@ -30,19 +30,20 @@ If game is not over, we start our next turn.
 
 
 // hit function ( shot reaches ship, or ship collision).collision
-const hit = (loc1, loc2) => {
+const hit = (loc1: coordinatesInterface, loc2: number) => {
     if (loc1.x - loc2.x === 0 && loc1.y - loc2.y === 0) {
         return true;
     } return false;
 }
 
 // hpChange function ( change the hp that's given by the given increment/decrement)
-const hpChange = (shipHp, change) => {
+const hpChange = (shipHp: number, change: number) => {
     return shipHp - change;
 }
 
+// move function ( change given position by x amount).
 
-// plotCourse function ( head n distance toward given target, until either arrival or destruction).
+// plotCourse function ( head toward given target, until either arrival or destruction).
 
 
 // pause function (toggle our Main Gameplay Loop).
