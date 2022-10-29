@@ -1,29 +1,46 @@
+import { shipInterface, playerInterface, shotInterface, actionInterface } from './interfaces';
 
-
-const stateInterface = {
-    ships: shipInterface[],
-    players: playerInterface[],
-    shots: shotInterface[],
+interface stateInterface {
+    ships: shipInterface [];
+    players: playerInterface [];
+    shots: shotInterface [];
 }
 
 
+// we'll need to copy the array, then find the index of the ship or shot or player in question, then update that element in the array's copy, then return the copied array.
 
-const reducer = (state, action) => {
+const initialState: stateInterface = {
+    ships: [],
+    players: [],
+    shots: [],
+}
 
-    switch (action.type) {
-        case 'MOVE_SHIP':
+
+export default function reducer (state: stateInterface, action: actionInterface) {
+
+    switch (action.type) {     
+        case 'MOVE':
             return {
                 ...state,
-                ships: {
-                    ...state.ships,
-                    [action.ship] : action.value
+                [action.item]: {
+                    ...action.value,
+                } 
+            }
+
+        case 'CHANGE_HEALTH':
+            return {
+                ...state,
+                [action.item]: {
+                    ...action.value,
                 }
             }
-            
-            break;
+
+
+        case 'NEW_GAME':
+            return initialState;
     
         default:
-            break;
+            return state;
     }
 
 }
