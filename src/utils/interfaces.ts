@@ -1,16 +1,16 @@
-interface shipInterface {
+export interface shipInterface {
    owner: playerInterface;
    coordinates: number[];
    color: string;
 }
 
-interface projectileInterface {
+export interface projectileInterface {
    id: number;
    coordinates: number[];
    hp: number;
 }
 
-interface playerInterface {
+export interface playerInterface {
    ships: shipInterface[];
    color: string;
 }
@@ -20,3 +20,8 @@ export interface actionInterface {
    item: string;
    value: shipInterface[] | projectileInterface[];
 }
+
+export interface HeaderProps {
+   player1: playerInterface;
+   player2: playerInterface;
+ }

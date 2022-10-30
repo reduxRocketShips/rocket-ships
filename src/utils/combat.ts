@@ -1,5 +1,4 @@
 
-import { coordinatesInterface } from '../'
 
 
 /*
@@ -21,10 +20,16 @@ Then, we'll see if all but one player is out of ships.a
     If all players are out, we declare a Draw on Game Over page.
 
 If game is not over, we start our next turn.
-
-
 */
 
+
+// PROPS
+export const X_LOWER_BOUNDARY = -100;
+export const X_UPPER_BOUNDARY = 100;
+export const Y_LOWER_BOUNDARY = -100;
+export const Y_UPPER_BOUNDARY = 100;
+
+//FUNCS
 
 // Write tests for all below:
 

@@ -2,9 +2,6 @@ import { expect } from "chai";
 
 import { Player, Projectile, Ship } from "../src/classes";
 
-// CLASS TESTS
-// basic projectile class (hp / move)
-
 describe("Testing the projectile class (HP)", () => {
     let proj1 = new Projectile([5, 10], 5)
 
@@ -20,15 +17,25 @@ describe("Testing the projectile class (HP)", () => {
         done();
     });
 
+    it('4. Should be marked living and display HP if HP > 0', function(done) {
+        expect(proj1.status).to.equal("Living (3HP)");
+        done();
+    });
+
     it('3. hp should go below 0 if change is > hp', function(done) {
         proj1.changeHp(4)
         expect(proj1.hp).to.equal(-1);
         done();
     });
 
+    it('4. Should be marked dead if HP <= 0', function(done) {
+        expect(proj1.status).to.equal("Dead");
+        done();
+    });
+
 })
 
-describe("Testing the projectile class (Move)", () => {
+describe("Testing the projectile class movement", () => {
     let proj2 = new Projectile([0,0], 5);
     it('1. coordinates should change to [1,1].', (done)=> {
         proj2.move([1,1]);
@@ -50,13 +57,25 @@ describe("Testing the projectile class (Move)", () => {
         expect(proj2.coordinates[1]).to.equal(25);
         done();
     });
-})
 
+    it('4. target should be set to [50, 50]', (done) => {
+        proj2.setTarget([50, 50]);
+        expect(proj2.target).to.equal([50, 50]);
+        done();
+    });
+
+    it('5. should have a slope of 0.5', (done) => {
+        const SLOPE = (50-25)/(50- -2);
+        expect(proj2.slope).to.equal(SLOPE);
+    })
+
+
+})
 
 // Ship class
 
 describe("Testing the Ship class", () => {
-    let ship1 = new Ship('blue', [3,3], 5);
+    let ship1 = new Ship('blue', [3,3], 5, 5);
 
     it('1. color should be blue', (done) => {
         expect(ship1.color).to.equal('blue');
@@ -113,6 +132,16 @@ describe('Player testing', () => {
 
     it('3. Expect player1.ships[0] to equal ship1.', (done) => {
         expect(player1.ships[0]).to.deep.equal(ship1);
+        done();
+    });
+
+    it('4. Should show that player is out when their ship array is empty', (done) => {
+        expect(player2.canContinue).to.equal(true);
+        done();
+    });
+
+    it('5. Should not show that player is out when their ship array is not empty', (done) => {
+        expect(player1.canContinue).to.equal(false);
         done();
     });
 
