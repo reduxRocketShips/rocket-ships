@@ -2,6 +2,15 @@ import { expect } from "chai";
 
 import { Player, Projectile, Ship } from "../src/classes";
 
+// Player needs to manage ships
+    // Add method
+    // Delete method
+
+// Projectiles need to delete themselves after they pass the boundary
+
+// Ship holds projectiles
+        // Shoot method
+
 describe("Testing the projectile class (HP)", () => {
     let proj1 = new Projectile([5, 10], 5)
 
@@ -77,22 +86,22 @@ describe("Testing the projectile class movement", () => {
 describe("Testing the Ship class", () => {
     let ship1 = new Ship('blue', [3,3], 5, 5);
 
-    it('1. color should be blue', (done) => {
+    it('1. Color should be blue', (done) => {
         expect(ship1.color).to.equal('blue');
         done();
     } );
 
-    it('2. should have a range of 5', (done) => {
+    it('2. Should have a range of 5', (done) => {
         expect(ship1.range).to.equal(5);
         done();
     })
 
-    it('3. should have coordinates [3,3]', (done)=>{
+    it('3. Should have coordinates [3,3]', (done)=>{
         expect(ship1.coordinates).to.deep.equal([3,3]);
         done();
     })
 
-    it('4.  should change coordinates to [1,1].', (done) => {
+    it('4. Should change coordinates to [1,1].', (done) => {
         ship1.move([1, 1]);
         expect(ship1.coordinates).to.deep.equal([1,1]);
         done();
@@ -102,6 +111,25 @@ describe("Testing the Ship class", () => {
         let proj = new Projectile([3, 3], 5)
         proj.move([1,1]);
         expect(proj.coordinates).to.deep.equal(ship1.coordinates);
+        done();
+    });
+
+    it('6. Shooting will create a new projectile instance', (done) => {
+        // this will add a shot to ship.shots
+        ship1.shoot();
+
+        // this is the specific shot that was just created.
+        let shot = ship1.shots[0];
+        // we want our ship to store its shots in an array. ( aside: this would allow multi shot features down the road).
+        //so, rather than check the variable we created, let's check the ship's shots array.
+        expect(shot).to.be.an.instanceOf(Projectile);
+        done();
+    });
+
+    it('7. Shot should move out of bounds', (done) => {
+        let shot = ship1.shots[0];
+        shot.move([110,110]);
+        expect(shot.outOfBounds).to.equal(true);
         done();
     });
 });
@@ -145,6 +173,14 @@ describe('Player testing', () => {
         done();
     });
 
+    // have ship create 
+
+    it ('6. Once projectile reaches out of bounds, it will be deleted', (done) => {
+        // this method deletes all shots/debris that are out of bounds
+        player1.eliminateOutliers();
+        expect(ship1.shots.length).to.equal(0);
+        done();
+    })
 })
 
 
