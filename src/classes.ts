@@ -75,10 +75,10 @@ export class Ship extends Projectile {
 
 
 export class Player {
-    ships: Ship[];
+    ships: Ship[] | [];
     color: string;
 
-    constructor(ships: Ship[], color: string){
+    constructor(color: string, ships: Ship[] = []){
         this.ships = ships;
         this.color = color;
     }
