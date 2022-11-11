@@ -119,7 +119,8 @@ describe("Testing the Ship class", () => {
 
     it('6. Shooting will create a new projectile instance', (done) => {
         // this will add a shot to ship.shots
-        ship1.shoot();
+        // WILL FIX TARGET HERE
+        ship1.shoot(target);
 
         // this is the specific shot that was just created.
         let shot = ship1.shots[0];
@@ -135,6 +136,13 @@ describe("Testing the Ship class", () => {
         expect(shot.outOfBounds).to.equal(true);
         done();
     });
+ 
+    it('8. Once shot is out of bounds, shot will be deleted from ship', () => {
+        let outShot = 
+    });
+    // let's make a new shot, and test collisions.3HP
+
+    // once the new shot has 0 hp, the ship should delete it.
 });
 
 // Player needs to manage ships
