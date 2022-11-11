@@ -22,18 +22,18 @@ describe("Testing the projectile class (HP)", () => {
         done();
     });
 
-    it('4. Should be marked living and display HP if HP > 0', function(done) {
+    it('3. Should be marked living and display HP if HP > 0', function(done) {
         expect(proj1.status).to.equal("Living (3HP)");
         done();
     });
 
-    it('3. hp should go below 0 if change is > hp', function(done) {
+    it('4. hp should go below 0 if change is > hp', function(done) {
         proj1.changeHp(4)
         expect(proj1.hp).to.equal(-1);
         done();
     });
 
-    it('4. Should be marked dead if HP <= 0', function(done) {
+    it('5. Should be marked dead if HP <= 0', function(done) {
         expect(proj1.status).to.equal("Dead");
         done();
     });
@@ -80,7 +80,7 @@ describe("Testing the projectile class movement", () => {
 // Ship class
 // Ship holds projectiles
     // Ships have colors
-    // Ships have coordinates    
+    // Ships have coordinates
     // Shoot method
     // Move method
     // get Slope method
@@ -145,19 +145,19 @@ describe('Player testing', () => {
     let ship1 = new Ship('blue', [3,3], 5);
     let ship2 = new Ship('blue', [4,4], 5);
     let ship3 = new Ship('blue', [3,6], 2, 7);
-    
+
     let ships = [ship1, ship2, ship3]
     const player1 = new Player("blue", ships);
     const player2 = new Player("red");
-    
+
     let ship4 = new Ship(player2.color, [25,25], 5)
     let ship5 = new Ship(player2.color, [55,55], 5)
-    
+
     it('1. Expect player2.ships to not have ships.', (done) => {
         expect(player2.ships.length).to.equal(0);
         done();
     });
-    
+
     it('2. Player2 should create a ship that matches ship4', (done) => {
         player2.createShip(player2.color, [25,25], 5);
         expect(player2.ships[0]).to.deep.equal(ship4);
@@ -171,11 +171,11 @@ describe('Player testing', () => {
         expect(player2.ships[1]).to.deep.equal(ship5);
         done();
     })
-    
+
     it('4. Expect ships to be removable.', (done) => {
         // create the conditions that will leave all player2 ships dead.
         //so, let's set hp of all player2 ships to 0.
-        // functional programming bans side effects and global variables. 
+        // functional programming bans side effects and global variables.
 
         for (const ship in player2.ships){
             ship.changeHp(5);
@@ -184,7 +184,7 @@ describe('Player testing', () => {
         expect(player2.ships.length).to.equal(0);
         done();
     });
-    
+
     it('5. Expect player1.ships to have ships.', (done) => {
         expect(player1.ships.length).greaterThan(0);
         done();
@@ -204,11 +204,11 @@ describe('Player testing', () => {
         expect(player1.loses).to.equal(false);
         done();
     });
-       
+
     it ('9. Player 1\'s ship1 should fire a shot out of bounds, then the shot should delete', (done) => {
         // our first ship is gonna make a shot.
-         player1.ships[0].shoot(); 
-         player1.ships[0].shots[0].move([110,110]);  
+         player1.ships[0].shoot();
+         player1.ships[0].shots[0].move([110,110]);
         // this method deletes all shots/debris that are out of bounds
         player1.eliminateOutliers();
         expect(player1.ships[0].shots.length).to.equal(0);
