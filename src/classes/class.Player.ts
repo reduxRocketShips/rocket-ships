@@ -1,3 +1,4 @@
+import { Ship } from "./class.Ship";
 export class Player {
     ships: Ship[] | [];
     color: string;

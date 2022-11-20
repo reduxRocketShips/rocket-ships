@@ -1,38 +1,32 @@
 import { X_LOWER_BOUNDARY, X_UPPER_BOUNDARY, Y_LOWER_BOUNDARY, Y_UPPER_BOUNDARY } from "../utils/combat";
 
 export class Projectile {
-    coordinates: number[];
+    x: number;
+    y: number;
     hp: number;
-    target: number[];
-    waypoint: number[];
     range: number;
+    perTurnRange: number;
+    speed: number;
+    vectorCoordinates: {x: number, y: number};
+    // normalizedVector: {x: number, y: number};
 
-  // number is arbitrarily chosen, will change as game is developed
-  constructor(coordinates: number[], hp: number, range: number = 5) {
-    this.coordinates = coordinates;
+  constructor(x: number, y: number, hp: number, vectorCoordinates: {x: number, y: number} = {x: 0, y: 0} ,range: number = Infinity, speed: number = 1) {
+    this.x = x;
+    this.y = y;
     this.hp = hp;
-    this.target = [0, 0];
-    this.waypoint = [0, 0];
+    this.vectorCoordinates = vectorCoordinates;
     this.range = range;
+    this.perTurnRange = range;
+    this.speed = speed;
+    // this.normalizedVector = {x: 0, y: 0};
   }
 
-  // plotCourse(coordinates: number[]){
-  // create waypoint based on target.
-  // }
-
-  // How are we thinking about travel ? Are we currently just teleporting to target, or moving incrementally to the target?
-
-  // what is the purpose of range?
-
-  // deal with hitting the edge of the map.
-
-  // current solution. If a projectile is out of bounds, outside code will delete the instance from gameState.
   get outOfBounds() {
     return (
-      this.coordinates[0] > X_UPPER_BOUNDARY ||
-      this.coordinates[0] < X_LOWER_BOUNDARY ||
-      this.coordinates[1] > Y_UPPER_BOUNDARY ||
-      this.coordinates[1] < Y_LOWER_BOUNDARY
+      this.x > X_UPPER_BOUNDARY ||
+      this.x < X_LOWER_BOUNDARY ||
+      this.y > Y_UPPER_BOUNDARY ||
+      this.y < Y_LOWER_BOUNDARY
     );
   }
 
@@ -40,21 +34,25 @@ export class Projectile {
     return;
   }
 
-  get slope() {
-    return (
-      (this.coordinates[1] - this.target[1]) /
-      (this.coordinates[0] - this.target[0])
-    );
-  }
 
-  setTarget(xy: number[]) {
-    // an array of numbers [1, 2]
-    this.target = xy;
+ // https://www.haroldserrano.com/blog/vectors-in-computer-graphics
+  vector(x: number, y: number) {
+    // get change in x and change in y
+    let changeX = x - this.x;
+    let changeY = y - this.y;
+
+    let vectorLen = Math.sqrt(changeX**2 + changeY**2);
+
+    let normalizedX = changeX/vectorLen;
+    let normalizedY = changeY/vectorLen;
+
+    return {x: normalizedX, y: normalizedY};
   }
 
   move(waypoint: number[]) {
-    this.coordinates = waypoint;
-    return waypoint;
+    this.x += (this.vectorCoordinates.x * this.speed);
+    this.y += (this.vectorCoordinates.y * this.speed);
+    this.range -= 1;
   }
 
   changeHp(change: number) {
