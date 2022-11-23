@@ -31,7 +31,7 @@ export class Projectile {
   }
 
   get status() {
-    return this.hp < 0 || this.outOfBounds;
+    return this.hp > 0 && !this.outOfBounds;
   }
 
 

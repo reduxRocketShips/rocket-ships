@@ -176,9 +176,10 @@ describe('Player testing', () => {
         //so, let's set hp of all player2 ships to 0.
         // functional programming bans side effects and global variables.
 
-        for (const ship in player2.ships){
+        player2.ships.forEach((ship) => {
             ship.changeHp(5);
-        }
+        });
+
         player2.removeDeadShips();
         expect(player2.ships.length).to.equal(0);
         done();
@@ -208,12 +209,14 @@ describe('Player testing', () => {
         // our first ship is gonna make a shot.
          player1.ships[0].shoot(10, 10);
          player1.ships[0].shots[0].move([110,110]);
+
         // this method deletes all shots/debris that are out of bounds
+        // Why is this part of the player class?
         player1.eliminateOutliers();
         expect(player1.ships[0].shots.length).to.equal(0);
         done();
-    })
-})
+    });
+});
 
 
 export {}
