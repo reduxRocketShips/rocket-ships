@@ -56,12 +56,12 @@ export class Projectile {
     let changeX = x - this.x;
     let changeY = y - this.y;
 
-    let vectorLen = Math.sqrt(changeX ** 2 + changeY ** 2);
+    let vectorLen = Math.sqrt(changeX ** 2 + changeY ** 2); // sqrt(1^2 + 1^2) = 1.41421356237
 
-    let normalizedX = changeX / vectorLen;
-    let normalizedY = changeY / vectorLen;
+    let normalizedX = changeX / vectorLen; // 1 / 1.414 = 0.707
+    let normalizedY = changeY / vectorLen; // 1 / 1.414 = 0.707
 
-    this.vectorCoordinates = { x: normalizedX, y: normalizedY };
+    this.vectorCoordinates = { x: normalizedX, y: normalizedY }; // {x: 0.707, y: 0.707}
 
     return { x: normalizedX, y: normalizedY };
   }

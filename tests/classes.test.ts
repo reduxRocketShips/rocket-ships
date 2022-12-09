@@ -89,19 +89,25 @@ describe("Testing the Ship class", () => {
     done();
   });
 
-  // TODO: Enable once Projectile movement is taken into account
-  // it('4. Should change coordinates to [1,1].', (done) => {
-  //     ship1.move([1, 1]);
-  //     expect(ship1.coordinates).to.deep.equal([1,1]);
-  //     done();
-  // });
+  it("4. Should change coordinates to [4,4]", (done) => {
+    // we need to create target, and create a vector, and compare our new coordinates after moving to the first waypoint created by the vector. (the first x+=vectorCoordinates.x, y += vectorCoordinates.y);
+    const ship2 = new Ship("blue", 0, 0, 5);
+    // ship1.vector(10, 10);
 
-  // it('5. Should move like a projectile', (done) => {
-  //     let proj = new Projectile(3, 3, 5)
-  //     proj.move([1,1]);
-  //     expect(proj.coordinates).to.deep.equal(ship1.coordinates);
-  //     done();
-  // });
+    // make sure both start and end create a line with slope of 1.
+
+    expect(ship2.vector(1, 1)).to.equal("something");
+    // expect(ship1.x).to.equal(4);
+    // expect(ship1.y).to.equal(4);
+    done();
+  });
+
+  it("5. Should move like a projectile", (done) => {
+    let proj = new Projectile(3, 3, 5);
+    proj.move();
+    expect(proj.vectorCoordinates).to.deep.equal(ship1.vectorCoordinates);
+    done();
+  });
 
   it("6. Shooting will create a new projectile instance", (done) => {
     // this will add a shot to ship.shots
@@ -207,7 +213,7 @@ describe("Player testing", () => {
   it("9. Player 1's ship1 should fire a shot out of bounds, then the shot should delete", (done) => {
     // our first ship is gonna make a shot.
     player1.ships[0].shoot(10, 10);
-    player1.ships[0].shots[0].move([110, 110]);
+    player1.ships[0].shots[0].move();
 
     // this method deletes all shots/debris that are out of bounds
     // Why is this part of the player class?
@@ -216,5 +222,3 @@ describe("Player testing", () => {
     done();
   });
 });
-
-export {};
