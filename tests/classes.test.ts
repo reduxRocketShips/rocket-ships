@@ -89,6 +89,7 @@ describe("Testing the Ship class", () => {
     done();
   });
 
+  // THE MATH IS RIGHT OUR ASSUMTPTIONS ARE WRONG
   it("4. Should change coordinates to [4,4]", (done) => {
     // we need to create target, and create a vector, and compare our new coordinates after moving to the first waypoint created by the vector. (the first x+=vectorCoordinates.x, y += vectorCoordinates.y);
     const ship2 = new Ship("blue", 0, 0, 5);
