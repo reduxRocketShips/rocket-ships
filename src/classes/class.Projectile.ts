@@ -1,16 +1,28 @@
-import { X_LOWER_BOUNDARY, X_UPPER_BOUNDARY, Y_LOWER_BOUNDARY, Y_UPPER_BOUNDARY } from "../utils/combat";
+import {
+  X_LOWER_BOUNDARY,
+  X_UPPER_BOUNDARY,
+  Y_LOWER_BOUNDARY,
+  Y_UPPER_BOUNDARY,
+} from "../utils/combat";
 
 export class Projectile {
-    x: number;
-    y: number;
-    hp: number;
-    range: number;
-    perTurnRange: number;
-    speed: number;
-    vectorCoordinates: {x: number, y: number};
-    // normalizedVector: {x: number, y: number};
+  x: number;
+  y: number;
+  hp: number;
+  range: number;
+  perTurnRange: number;
+  speed: number;
+  vectorCoordinates: { x: number; y: number };
+  // normalizedVector: {x: number, y: number};
 
-  constructor(x: number, y: number, hp: number, vectorCoordinates: {x: number, y: number} = {x: 0, y: 0} ,range: number = Infinity, speed: number = 1) {
+  constructor(
+    x: number,
+    y: number,
+    hp: number,
+    vectorCoordinates: { x: number; y: number } = { x: 0, y: 0 },
+    range: number = Infinity,
+    speed: number = 1
+  ) {
     this.x = x;
     this.y = y;
     this.hp = hp;
@@ -31,27 +43,32 @@ export class Projectile {
   }
 
   get status() {
-    return this.hp > 0 && !this.outOfBounds;
+    if (this.hp < 0 || this.outOfBounds) {
+      return "Dead";
+    } else {
+      return `Living (${this.hp}HP)`;
+    }
   }
 
-
- // https://www.haroldserrano.com/blog/vectors-in-computer-graphics
+  // https://www.haroldserrano.com/blog/vectors-in-computer-graphics
   vector(x: number, y: number) {
     // get change in x and change in y
     let changeX = x - this.x;
     let changeY = y - this.y;
 
-    let vectorLen = Math.sqrt(changeX**2 + changeY**2);
+    let vectorLen = Math.sqrt(changeX ** 2 + changeY ** 2);
 
-    let normalizedX = changeX/vectorLen;
-    let normalizedY = changeY/vectorLen;
+    let normalizedX = changeX / vectorLen;
+    let normalizedY = changeY / vectorLen;
 
-    return {x: normalizedX, y: normalizedY};
+    this.vectorCoordinates = { x: normalizedX, y: normalizedY };
+
+    return { x: normalizedX, y: normalizedY };
   }
 
-  move(waypoint: number[]) {
-    this.x += (this.vectorCoordinates.x * this.speed);
-    this.y += (this.vectorCoordinates.y * this.speed);
+  move() {
+    this.x += this.vectorCoordinates.x * this.speed;
+    this.y += this.vectorCoordinates.y * this.speed;
     this.range -= 1;
   }
 
